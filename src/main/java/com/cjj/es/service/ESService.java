@@ -7,7 +7,7 @@ import co.elastic.clients.elasticsearch.core.*;
 import co.elastic.clients.elasticsearch.core.bulk.BulkOperation;
 import co.elastic.clients.elasticsearch.core.bulk.IndexOperation;
 import com.cjj.es.entity.Article;
-import com.cjj.es.mapper.DocMapper;
+import com.cjj.es.mapper.ArticleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class ESService {
     private ElasticsearchClient elasticsearchClient;
 
     @Autowired
-    private DocMapper docMapper;
+    private ArticleMapper articleMapper;
 
     @Autowired
     private KafkaTemplate<String, Object> kafkaTemplate;
@@ -192,7 +192,7 @@ public class ESService {
             System.out.println("开始全量同步数据到ES...");
 
             // 第一步：从数据库查询所有文章数据
-            List<Article> articles = docMapper.selectAllArticles();
+            List<Article> articles = articleMapper.selectAllArticles();
             if (articles == null || articles.isEmpty()) {
                 result.put("success", false);
                 result.put("message", "数据库中没有文章数据");
@@ -234,7 +234,7 @@ public class ESService {
     public boolean saveDocument(Long aid) {
         try {
             // 从数据库查询文章
-            Article article = docMapper.selectByAid(aid);
+            Article article = articleMapper.selectByAid(aid);
             if (article == null) {
                 System.err.println("文章不存在: " + aid);
                 return false;

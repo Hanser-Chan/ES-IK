@@ -2,7 +2,7 @@ package com.cjj.es.controller;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import com.cjj.es.entity.Article;
-import com.cjj.es.mapper.DocMapper;
+import com.cjj.es.mapper.ArticleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +24,7 @@ public class SimpleTestController {
     private ElasticsearchClient elasticsearchClient;
 
     @Autowired(required = false)
-    private DocMapper docMapper;
+    private ArticleMapper articleMapper;
 
     /**
      * 测试 ES 连接
@@ -54,13 +54,13 @@ public class SimpleTestController {
         Map<String, Object> result = new HashMap<>();
         
         try {
-            if (docMapper == null) {
+            if (articleMapper == null) {
                 result.put("success", false);
                 result.put("message", "DocMapper 未注入，请检查 MyBatis 配置");
                 return result;
             }
 
-            int count = docMapper.countArticles();
+            int count = articleMapper.countArticles();
             result.put("success", true);
             result.put("article_count", count);
             result.put("message", "数据库连接正常");
@@ -85,8 +85,8 @@ public class SimpleTestController {
             result.put("timestamp", System.currentTimeMillis());
             
             // 如果 docMapper 可用，尝试查询数据
-            if (docMapper != null) {
-                List<Article> articles = docMapper.selectAllArticles();
+            if (articleMapper != null) {
+                List<Article> articles = articleMapper.selectAllArticles();
                 result.put("database_articles", articles != null ? articles.size() : 0);
             }
             

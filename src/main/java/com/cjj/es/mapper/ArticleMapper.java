@@ -12,7 +12,7 @@ import java.util.List;
  * 遵循单一职责原则：专注于数据库查询操作
  */
 @Mapper
-public interface DocMapper {
+public interface ArticleMapper {
 
     /**
      * 查询所有文章数据
