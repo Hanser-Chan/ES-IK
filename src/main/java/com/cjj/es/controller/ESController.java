@@ -2,6 +2,7 @@ package com.cjj.es.controller;
 
 import com.cjj.es.service.ESService;
 import com.cjj.es.service.ElasticsearchTestService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,8 +14,12 @@ import java.util.Map;
 @RequestMapping("/api/doc")
 public class ESController {
 
-    private ElasticsearchTestService elasticsearchTestService;
+    @Autowired
     private ESService esService;
+    
+    @Autowired
+    private ElasticsearchTestService elasticsearchTestService;
+
     /**
      * 全量数据同步接口 - saveDoc
      * 功能：将数据库数据全量用Bulk API写入ES

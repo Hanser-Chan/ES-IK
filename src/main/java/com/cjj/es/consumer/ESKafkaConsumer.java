@@ -30,10 +30,10 @@ public class ESKafkaConsumer {
     public void handleESSyncMessage(Map<String, Object> message) {
         try {
             System.out.println("收到Kafka消息，开始处理ES同步...");
-            
-            // 解析消息内容
+              // 解析消息内容
             String operation = (String) message.get("operation");
             String index = (String) message.get("index");
+            @SuppressWarnings("unchecked")
             List<Article> articles = (List<Article>) message.get("data");
             Long timestamp = (Long) message.get("timestamp");
             

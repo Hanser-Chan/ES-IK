@@ -14,9 +14,9 @@ public class ElasticsearchTestController {
     /**
      * 手动测试连接
      */
-    public void testConnection() {
-        elasticsearchTestService.testConnection();
-    }
+//    public void testConnection() {
+//        elasticsearchTestService.testConnection();
+//    }
     
     /**
      * 检查连接状态
